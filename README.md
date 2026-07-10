@@ -1,25 +1,28 @@
+**Prepare for you java developer senior role interview**  
+Just do it. See you at the top.
+
 Content
 -----------------------------------
-☕ Java
-🏗️ Software Design
-🏛️ System Design
-🧠 Computer Science Fundamentals
-🏢 Enterprise Java & Jakarta EE
-🚀 Spring Boot & Spring Ecosystem
-🗄️ SQL & Databases
-📦 ORM (Hibernate)
-⚡ Microservices Architecture
-🌐 Distributed Systems
-🔌 APIs & Integration
-📨 Messaging & Event-Driven Systems
-☁️ Cloud Technologies
-🐳 Docker & Kubernetes
-🔧 DevOps & CI/CD
-🔒 Security
-🧪 Testing
-🔭 Observability & Monitoring
-🤖 AI, LLMs & Modern Development
------------------------------------
+☕ Java  
+🏗️ Software Design  
+🏛️ System Design  
+🧠 Computer Science Fundamentals  
+🏢 Enterprise Java & Jakarta EE  
+🚀 Spring Boot & Spring Ecosystem  
+🗄️ SQL & Databases  
+📦 ORM (Hibernate)  
+⚡ Microservices Architecture  
+🌐 Distributed Systems  
+🔌 APIs & Integration  
+📨 Messaging & Event-Driven Systems  
+☁️ Cloud Technologies  
+🐳 Docker & Kubernetes  
+🔧 DevOps & CI/CD  
+🔒 Security  
+🧪 Testing  
+🔭 Observability & Monitoring  
+🤖 AI, LLMs & Modern Development  
+
 
 
 
