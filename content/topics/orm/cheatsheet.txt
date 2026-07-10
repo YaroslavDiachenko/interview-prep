@@ -1,0 +1,113 @@
+📁 ORM
+
+ORM (Object Relational Mapping)
+	Mapping of Java objects on its relational representation. Creates a layer between object-oriented language and the database.
+	
+Hibernate
+	object–relational mapping framework for the Java programming language; JPA implementation.
+
+
+JPA (Java Persistence API)
+	IS a specification of the Java API for the management of persistence and object/relational mapping.
+	
+	key interfaces: EntityManagerFactory, EntityManager, EntityTransaction, Query, CriteriaBuilder, CriteriaQuery, Cache
+	
+	Persistence context:
+		A set of persistable entity instances.
+		Persistence context is the first-level cache where all the entities are fetched from the database or saved to the database.
+		Persistence context keeps track of any changes made into a managed entity. 
+		An EntityManager instance is associated with a persistence context.
+		
+		Lifecycle:
+			New (Transient)
+			Persistent (Managed)
+			Detached
+			Removed
+
+		Types:
+			Container-managed
+				Container begins a transaction immediately before an enterprise bean method starts and commits the transaction just 
+				before the method exits. Each method can be associated with a single transaction. Nested or multiple transactions 
+				are not allowed within a method.
+				
+				
+				Types:
+					Transaction-scoped
+						Is bound to one transaction. Once transaction finishes, the entities present in the persistence context will 
+						be flushed into persistent storage, detached from the EntityManager and are no longer managed. Any local 
+						caching the EntityManager instance had done is lost. 
+					Extended-scoped
+						Can outlive JTA transaction. When you specify that an injected EntityManager is an extended persistence 
+						context, all object instances remain managed. 
+						Extended persistence contexts can only be used within Stateful session beans.
+						If you interact with an extended persistence context outside of a transaction, the inserts, updates, and 
+						deletes will be queued until you access the persistence context within a transaction.
+
+			Application-Managed
+				With an application-managed entity manager, on the other hand, the persistence context is not propagated to 
+				application components, and the lifecycle of EntityManager instances is managed by the application.
+		
+		Container-managed context types:
+			Transaction-scoped
+				Is bound to one transaction. As soon as the transaction finishes, the entities present in the persistence context 
+				will be flushed into persistent storage.
+			Extended-scoped
+				An extended persistence context can span across multiple transactions. We can persist the entity without the 
+				transaction but cannot flush it without a transaction.
+		
+		
+		Transactions:
+			@TransactionAttribute
+			@TransactionAttributeType(MANDATORY, REQUIRED, REQUIRES_NEW, SUPPORTS, NOT_SUPPORTED, NEVER)
+
+		
+	Entity - lightweight persistent domain object, stored as record in the database.
+	
+		Requirements:
+			must be annotated with @Entity;
+			must have a public or protected, no-argument constructor;
+			class must not be declared final;
+			no methods or persistent instance variables must be declared final;
+			class must implement the Serializable interface, if an entity instance is passed by value as a detached object;
+			persistent instance variables must be accessed only by getters, can be accessed directly only by the entity class's methods;
+			entities may extend both entity and non-entity classes, and non-entity classes may extend entity classes;
+		
+		
+		Access types:
+			field based
+			property based
+			
+		Allowed types of fields or properties:
+			Java primitive types;
+			String
+			Other serializable types
+				Wrappers of Java primitive types
+				BigInteger, BigDecimal, Date, Calendar, TimeStamp, etc; 
+				byte/Byte[], char/Character[]
+			Enumerated types
+			Other entities and/or collections of entities
+			Embeddable classes
+			
+		Annotations:
+			@Entity, @Table, @Cacheable, @Audited, @EntityListeners, @MappedSuperclass
+			
+			@NamedNativeQuery, @NamedEntityGrap(name,attributeNodes), @NamedAttributeNode
+			@Inheritance, @DiscriminatorFormula, @DiscriminatorValue
+			
+			@Id, @GeneratedValue(strategy, generator), @Column
+			@Embeddable, @EmbeddedId, @MapsId
+			
+			@OneToOne(targetEntity,mappedBy,cascade), @OneToMany, @ManyToOne ...
+			@JoinTable(name,joinColumns,inverseJoinColumns), @JoinColumn
+		
+			@Transient
+			
+		Cascade types:
+			ALL, DETACH,MERGE,PERSIST,REFRESH,REMOVE
+
+	Caching:
+		Cache levels:
+			First-Level Cache (persistence context)
+				is a session scoped cache which ensures that each entity instance is loaded only once in the persistent context.
+			Second-Level Cache (real cache)
+				is a SessionFactory-scoped cache, meaning it is shared by all sessions created with the same session factory
