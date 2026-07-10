@@ -1,0 +1,222 @@
+JAVA LANGUAGE FUNDAMENTALS
+===========================
+
+=== TERMS ===
+
+📌 Variables & Types
+	🔸Primitive types (byte, short, int, long, float, double, char, boolean)
+	🔸Default values of primitive types
+	🔸Wrapper classes (Byte, Short, Integer, Long, Float, Double, Character, Boolean)
+	🔸Autoboxing
+	🔸Unboxing
+	🔸Integer cache (-128..127) / Integer.valueOf() caching
+	🔸NullPointerException on unboxing
+	🔸Type conversion (implicit/widening)
+	🔸Type casting (explicit/narrowing)
+	🔸Overflow
+	🔸Underflow
+	🔸Integer overflow wrap-around behavior
+	🔸Floating-point precision loss
+	🔸NaN (Not a Number)
+	🔸Positive/Negative Infinity
+	🔸Floating-point equality pitfalls
+	🔸BigInteger
+	🔸BigDecimal
+	🔸BigDecimal rounding modes
+	🔸Numeric literals (hex, octal, binary, underscore separators)
+	🔸char arithmetic and implicit int promotion
+	🔸Unicode and char representation (UTF-16 code unit)
+	🔸Escape sequences
+	🔸String immutability
+	🔸String Pool (interned strings)
+	🔸String.intern()
+	🔸String concatenation (+ operator) mechanics
+	🔸String vs StringBuilder vs StringBuffer
+	🔸StringBuilder internal implementation (mutable char array)
+	🔸StringBuffer synchronization overhead
+	🔸StringJoiner
+	🔸String.format() / formatted()
+	🔸Text blocks (Java 15+)
+	🔸Character utility methods (isDigit, isLetter, etc.)
+	🔸var (local variable type inference, Java 10+)
+	🔸Type inference limitations (var restrictions)
+	🔸final variables
+	🔸Effectively final variables
+	🔸Constants (static final)
+	🔸Compile-time constants and inlining
+	🔸Variable scope (local, instance, class/static)
+	🔸Variable shadowing
+	🔸Arrays (single and multidimensional)
+	🔸Array covariance
+	🔸ArrayStoreException
+	🔸Jagged arrays
+	🔸System.arraycopy()
+	🔸Arrays utility class (sort, fill, equals, deepEquals)
+	🔸Varargs
+	🔸Autoboxing performance implications
+	🔸Wrapper class caching pitfalls (== vs equals for Integer)
+	🔸Immutable wrapper objects
+
+📌 Operators
+	🔸== operator (reference vs primitive comparison)
+	🔸equals() method (contract overview)
+	🔸instanceof operator
+	🔸Pattern matching for instanceof (Java 16+)
+	🔸Arithmetic operators
+	🔸Relational operators
+	🔸Logical operators (&&, ||)
+	🔸Short-circuit evaluation
+	🔸Bitwise operators (&, |, ^, ~)
+	🔸Shift operators (<<, >>, >>>)
+	🔸Signed vs unsigned right shift
+	🔸Compound assignment operators (+=, -=, etc.)
+	🔸Implicit narrowing cast in compound assignment
+	🔸Ternary operator
+	🔸Operator precedence and associativity
+	🔸Increment/decrement operators (pre vs post)
+	🔸instanceof with generics and type erasure interplay
+
+📌 Control Flow
+	🔸if-else statement
+	🔸Traditional switch statement
+	🔸Switch fall-through behavior
+	🔸Enhanced switch expressions (Java 14+)
+	🔸yield keyword
+	🔸Arrow (->) syntax in switch
+	🔸Pattern matching for switch (Java 21+)
+	🔸Guarded patterns / when clauses
+	🔸Record patterns (Java 21+)
+	🔸Exhaustiveness checking in switch
+	🔸for loop
+	🔸Enhanced for-each loop
+	🔸Enhanced for-each and ConcurrentModificationException
+	🔸while loop
+	🔸do-while loop
+	🔸Labeled statements
+	🔸Labeled break/continue
+	🔸break statement
+	🔸continue statement
+	🔸Unreachable code detection
+	🔸Null handling in control flow (NPE sources)
+
+📌 General Language Concepts
+	🔸Package declaration and directory structure
+	🔸Import statements (regular vs static import)
+	🔸main() method signature and program entry point
+	🔸Command-line arguments
+	🔸Enum type basics (values(), valueOf(), ordinal(), name())
+	🔸Built-in annotations (@Override, @Deprecated, @SuppressWarnings, @FunctionalInterface)
+	🔸Comments and Javadoc conventions
+	🔸Naming conventions (classes, methods, constants)
+	🔸Pass-by-value semantics in Java (including object references)
+	🔸Autoboxing in collections (implications for performance/memory)
+
+=== QUESTIONS ===
+
+📌 Variables & Types
+	🔸What are the 8 primitive types in Java and their default values and sizes?
+	🔸What is the difference between a primitive type and its wrapper class?
+	🔸What is autoboxing and unboxing, and where does Java perform them implicitly?
+	🔸Can autoboxing/unboxing cause a NullPointerException? Give an example.
+	🔸What is the Integer cache and why does it exist?
+	🔸Why does `Integer.valueOf(127) == Integer.valueOf(127)` return true but `Integer.valueOf(200) == Integer.valueOf(200)` return false?
+	🔸How would you safely compare two Integer wrapper objects for value equality?
+	🔸What is the difference between widening and narrowing conversions?
+	🔸When does an explicit cast throw an exception vs silently truncate/wrap data?
+	🔸What happens when an int overflows? Does Java throw an exception?
+	🔸How would you detect integer overflow before it happens?
+	🔸What is the difference between int overflow and floating-point overflow (Infinity)?
+	🔸Why is floating-point arithmetic sometimes imprecise (e.g., 0.1 + 0.2 != 0.3)?
+	🔸When should you use BigDecimal instead of double, and why?
+	🔸What are the pitfalls of using the BigDecimal(double) constructor vs BigDecimal.valueOf(double)?
+	🔸What rounding modes does BigDecimal support and when would you use each?
+	🔸Why is BigDecimal considered "safe" for monetary calculations while double is not?
+	🔸What is NaN, and what are its comparison semantics (e.g., NaN == NaN)?
+	🔸How do you correctly check if a double value is NaN?
+	🔸What is the String pool and how does it relate to memory management?
+	🔸Why are String objects immutable in Java? What are the benefits?
+	🔸What security and performance benefits come from String immutability?
+	🔸What does String.intern() do, and when would you use it?
+	🔸What is the difference between creating a String via literal vs `new String(...)`?
+	🔸How many String objects are created in `new String("abc")`?
+	🔸What is the difference between String, StringBuilder, and StringBuffer?
+	🔸When would you choose StringBuffer over StringBuilder?
+	🔸How does string concatenation with `+` work under the hood (compile-time vs runtime)?
+	🔸Why is using `+` for string concatenation in a loop considered a performance anti-pattern?
+	🔸What does the compiler do differently for `String s = "a" + "b";` vs building a string in a loop?
+	🔸What is a text block and what problems does it solve?
+	🔸What is the purpose of `var` and what are its limitations?
+	🔸Can `var` be used for instance fields or method parameters? Why or why not?
+	🔸Does using `var` make Java a dynamically typed language? Why not?
+	🔸What is the difference between `final` and "effectively final"?
+	🔸Why do lambdas and anonymous classes require captured local variables to be final or effectively final?
+	🔸What is the difference between a compile-time constant and a `final` variable that isn't a compile-time constant?
+	🔸What issues can arise from inlining compile-time constants across compiled classes (binary compatibility)?
+	🔸What is array covariance in Java, and what runtime risk does it introduce?
+	🔸What is ArrayStoreException and when is it thrown?
+	🔸How does `System.arraycopy()` differ from `Arrays.copyOf()`?
+	🔸What is the difference between `Arrays.equals()` and `Arrays.deepEquals()`?
+	🔸How do varargs work internally, and what are the pitfalls of mixing varargs with overloading?
+	🔸What is the performance cost of autoboxing in a tight loop or large collection?
+	🔸Why can excessive autoboxing hurt performance in numeric-heavy code?
+	🔸What's the difference between `char` arithmetic and `int` arithmetic in expressions like `char c = 'a' + 1;`?
+	🔸Why does `char + char` produce an `int` result?
+	🔸How does Java represent characters internally, and how does that relate to Unicode/UTF-16 and surrogate pairs?
+	🔸What numeric literal formats does Java support (hex, octal, binary, underscores)?
+	🔸Why might using underscores in numeric literals improve code readability, and where can they NOT be placed?
+
+📌 Operators
+	🔸What is the difference between `==` and `.equals()` for objects?
+	🔸Why does `==` work correctly for primitives but can be misleading for wrapper objects?
+	🔸What does `instanceof` check, and how does it behave with null?
+	🔸What is pattern matching for `instanceof`, and how does it reduce boilerplate?
+	🔸What is short-circuit evaluation, and how does it differ between `&`/`|` and `&&`/`||`?
+	🔸When would you deliberately use `&` or `|` instead of `&&` or `||`?
+	🔸What do the bitwise operators `&`, `|`, `^`, `~` do?
+	🔸What is the difference between `>>` and `>>>`?
+	🔸Why doesn't Java have an unsigned left shift operator?
+	🔸How does operator precedence affect the evaluation of complex expressions?
+	🔸What is the difference between pre-increment and post-increment operators?
+	🔸What is a subtle bug that can occur when combining `++` with other operations in the same expression?
+	🔸Why does `x += 1` compile even when `x` is a `byte` but `x = x + 1` does not?
+	🔸What is the implicit narrowing cast performed by compound assignment operators?
+	🔸What are common misuses or misunderstandings of the ternary operator, especially involving mixed types?
+	🔸What is unboxing-related NPE risk when using `?:` with mixed primitive and wrapper operands?
+
+📌 Control Flow
+	🔸What is the difference between a switch statement and a switch expression?
+	🔸What is fall-through in a traditional switch, and why is it considered error-prone?
+	🔸What is the purpose of the `yield` keyword in switch expressions?
+	🔸How does the arrow (`->`) syntax in switch differ from the classic colon syntax?
+	🔸What is pattern matching for switch, and what problem does it solve?
+	🔸What are guarded patterns (`when` clauses) in switch pattern matching?
+	🔸What are record patterns, and how do they enable deconstruction in switch?
+	🔸How does the compiler enforce exhaustiveness in switch expressions over sealed types or enums?
+	🔸What happens if a switch expression over an enum doesn't cover all cases and has no default?
+	🔸What is the difference between a `for` loop and an enhanced `for-each` loop in terms of capabilities?
+	🔸Why can't you get the index directly in a for-each loop, and how would you work around it?
+	🔸What is ConcurrentModificationException and how can a for-each loop trigger it?
+	🔸What is the difference between `while` and `do-while` loops, and when would you prefer one?
+	🔸What are labeled statements used for, and why are they rarely used?
+	🔸How do labeled `break` and `continue` differ from unlabeled ones in nested loops?
+	🔸What determines whether code is "unreachable" and how does the compiler detect it?
+	🔸Can you have code after an infinite loop that the compiler still accepts? Why or why not?
+
+📌 Language Structure & Deep-Dive Questions
+	🔸Explain Java's pass-by-value semantics — is Java pass-by-reference for objects?
+	🔸If Java is pass-by-value, why can a method mutate the fields of an object passed to it?
+	🔸What's the difference between reassigning an object reference inside a method and mutating its state?
+	🔸Why does Java require local variables to be explicitly initialized before use, but not instance variables?
+	🔸How would you explain integer division and modulo behavior with negative numbers in Java?
+	🔸What is the result of dividing by zero for integers vs floating-point types?
+	🔸How does Java handle implicit type promotion in mixed-type arithmetic expressions (e.g., int + long, int + double)?
+	🔸What are common gotchas when converting between numeric types that can silently lose data?
+	🔸What is the difference between `Integer.parseInt()` and `Integer.valueOf()`?
+	🔸What is the purpose of package declarations, and how do they relate to directory structure and visibility?
+	🔸What is the difference between a regular import and a static import, and when would you use static import?
+	🔸Why must the main method be `public static void main(String[] args)`? What happens if you deviate from this signature?
+	🔸How would you access and parse command-line arguments passed to a Java program?
+	🔸What are the basic capabilities of a Java enum (values(), valueOf(), ordinal(), name()), and why is relying on ordinal() risky?
+	🔸Why might an enum be a safer choice than int or String constants for representing a fixed set of values?
+	🔸What do @Override, @Deprecated, and @SuppressWarnings do, and why use @Override even though it's optional?
+	🔸As a senior engineer, what fundamental "gotchas" from this topic do you specifically watch for during code review?

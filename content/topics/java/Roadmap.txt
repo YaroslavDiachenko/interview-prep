@@ -1,0 +1,509 @@
+For a **Senior Java Developer** interview, interviewers usually expect more than knowing the language syntax. They want to see that you understand **how Java works internally**, can reason about performance, concurrency, memory, and design trade-offs.
+
+Here's a roadmap organized in the order I'd recommend studying.
+
+
+# Topic: Java Language Fundamentals
+
+		### Variables & Types
+
+		* Primitive types
+		* Wrapper classes
+		* Autoboxing/unboxing
+		* Type conversion
+		* Overflow
+		* String vs StringBuilder vs StringBuffer
+
+		### Operators
+
+		* == vs equals()
+		* instanceof
+		* Pattern matching for instanceof (Java 17+)
+
+		### Control Flow
+
+		* switch expressions
+		* enhanced switch
+		* loops
+		* labels (rare)
+
+		---
+# Topic: OOP
+
+		## Classes
+
+		* constructors
+		* initialization blocks
+		* static initialization
+		* nested classes
+		* anonymous classes
+		* local classes
+
+		## OOP Principles
+
+		* encapsulation
+		* inheritance
+		* abstraction
+		* polymorphism
+
+		## Method Overloading vs Overriding
+
+		Know:
+
+		* compile-time vs runtime
+		* covariant return types
+		* checked exceptions rules
+
+		---
+
+		## Object class
+
+		Every method should be understood deeply.
+
+		* equals()
+		* hashCode()
+		* toString()
+		* clone()
+		* finalize (why deprecated)
+		* getClass()
+
+		---
+
+# Topic: JMM & JVM
+
+		Understand:
+
+		* Stack
+		* Heap
+		* Metaspace
+		* String Pool
+		* Native Memory
+
+		Know object lifecycle.
+
+		Garbage Collection
+
+		Study:
+
+		* Generational GC
+		* Young generation
+		* Old generation
+		* Minor GC
+		* Major GC
+		* Full GC
+
+		Modern collectors
+
+		* G1
+		* ZGC
+		* Shenandoah
+
+		Questions:
+
+		* Why OutOfMemoryError happens
+		* Memory leak in Java
+		* Strong/Soft/Weak/Phantom references
+
+		Must know:
+
+		* happens-before
+		* visibility
+		* atomicity
+		* reordering
+		* CAS
+		* ABA problem
+
+		---
+		
+		JVM Internals:
+		
+		* Class Loading
+		* Bootstrap/Platform/Application ClassLoader
+		* Delegation model
+		* Bytecode
+		* JIT
+		* HotSpot
+		* Escape analysis
+		* Inlining
+		* Reflection
+		* Dynamic proxies
+		* Annotations
+
+		---
+
+# Topic: Collections Framework
+
+		## Interfaces
+
+		* Collection
+		* List
+		* Set
+		* Queue
+		* Deque
+		* Map
+
+		---
+
+		## List implementations
+
+		* ArrayList
+		* LinkedList
+		* Vector
+		* CopyOnWriteArrayList
+
+		Know
+
+		* complexity
+		* memory
+		* use cases
+
+		---
+
+		## Set
+
+		* HashSet
+		* LinkedHashSet
+		* TreeSet
+
+		Questions
+
+		* duplicates
+		* ordering
+		* performance
+
+		---
+
+		## Map
+
+		Study deeply
+
+		* HashMap
+		* LinkedHashMap
+		* TreeMap
+		* Hashtable
+		* ConcurrentHashMap
+		* WeakHashMap
+		* IdentityHashMap
+		* EnumMap
+
+		HashMap internals
+
+		Know everything:
+
+		* hashing
+		* buckets
+		* collisions
+		* treeification
+		* resizing
+		* load factor
+		* capacity
+		* hashCode()
+		* equals()
+
+		Typical questions
+
+		* Why initial capacity matters?
+		* Why power of two?
+		* Why tree after Java 8?
+
+		---
+
+		## Iterators
+
+		* Iterator
+		* ListIterator
+		* Spliterator
+
+		Fail-fast vs fail-safe
+
+		ConcurrentModificationException
+
+		---
+
+# Topic: Generics
+
+		Topics
+
+		* Type erasure
+		* Bounded types
+		* Wildcards
+		* PECS principle
+		* Generic methods
+		* Generic classes
+		* Raw types
+
+		---
+
+# Topic: Exceptions Handling
+
+		Study
+
+		Checked vs unchecked
+
+		Throwable hierarchy
+
+		Error
+
+		Exception
+
+		RuntimeException
+
+		Best practices
+
+		Custom exceptions
+
+		Suppressed exceptions
+
+		try-with-resources
+
+		finally behavior
+
+		---
+
+# Topic: Multithreading & Concurrency
+
+		## Thread basics
+
+		* Thread
+		* Runnable
+		* Callable
+		* Future
+
+		Lifecycle
+
+		States
+
+		---
+
+		## Synchronization
+
+		synchronized
+
+		volatile
+
+		atomic classes
+
+		locks
+
+		Questions
+
+		volatile vs synchronized
+
+		---
+
+		## Locks
+
+		ReentrantLock
+
+		ReadWriteLock
+
+		StampedLock
+
+		Semaphore
+
+		CountDownLatch
+
+		CyclicBarrier
+
+		Phaser
+
+		Exchanger
+
+		---
+
+		## Executors
+
+		Executor
+
+		ExecutorService
+
+		ScheduledExecutorService
+
+		ThreadPoolExecutor
+
+		ForkJoinPool
+
+		CompletableFuture
+
+		Questions
+
+		Fixed thread pool
+
+		Cached thread pool
+
+		Work stealing
+
+		ForkJoin
+
+		---
+
+		## Concurrent Collections
+
+		ConcurrentHashMap
+
+		BlockingQueue
+
+		ConcurrentLinkedQueue
+
+		CopyOnWriteArrayList
+
+		---
+
+# Topic: Functional Programming & Lambdas & Streams API
+
+		Functional Programming
+
+		Functional interfaces
+
+		Lambda
+
+		Method references
+
+		Default methods
+
+		Optional
+
+		Predicate
+
+		Function
+
+		Supplier
+
+		Consumer
+
+		UnaryOperator
+
+		BinaryOperator
+
+		---
+
+		Streams API.
+
+		Intermediate operations
+
+		Terminal operations
+
+		Lazy evaluation
+
+		Collectors
+
+		Parallel streams
+
+		Questions
+
+		map()
+
+		flatMap()
+
+		reduce()
+
+		collect()
+
+		distinct()
+
+		peek()
+
+		findFirst()
+
+		findAny()
+
+		---
+
+# Topic: Modern Java Features
+
+		Java 8
+
+		* Streams
+		* Lambda
+		* Optional
+		* CompletableFuture
+
+		Java 9
+
+		* Modules
+
+		Java 10
+
+		* var
+
+		Java 11
+
+		* HttpClient
+
+		Java 14–17
+
+		* Records
+		* Sealed classes
+		* Pattern matching
+		* Text blocks
+		* Switch expressions
+
+		Java 21 (nice to know)
+
+		* Virtual Threads
+		* Structured Concurrency (preview/history)
+		* Scoped Values
+
+		---
+
+# Topic: I/O & NIO
+
+		Files
+
+		Path
+
+		Files API
+
+		Channels
+
+		Buffers
+
+		Selectors
+
+		Memory-mapped files
+
+		Serialization
+
+		Externalizable
+
+		Questions
+
+		Serializable pitfalls
+
+		serialVersionUID
+
+		---
+
+# Topic: Reflection & Annotations
+
+		Reflection API
+
+		Dynamic Proxy
+
+		Annotations
+
+		Custom annotations
+
+		Annotation processing
+
+		---
+
+# Topic: Performance
+
+		String optimization
+
+		Escape analysis
+
+		Object allocation
+
+		GC tuning basics
+
+		Benchmarking
+
+		JMH basics
+
+		Big-O complexity
+
+		Primitive vs wrapper performance
+
+		---
