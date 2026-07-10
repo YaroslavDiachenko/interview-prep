@@ -4,17 +4,16 @@ JAVA LANGUAGE FUNDAMENTALS
 === TERMS ===
 
 📌 Variables & Types
-	🔸Primitive types (byte, short, int, long, float, double, char, boolean)
+	🔸Primitive types
 	🔸Default values of primitive types
-	🔸Wrapper classes (Byte, Short, Integer, Long, Float, Double, Character, Boolean)
-	🔸Autoboxing
-	🔸Unboxing
+	🔸Wrapper classes for primitive types
+	🔸Autoboxing/Unboxing
+	🔸Autoboxing performance implications
 	🔸Integer cache (-128..127) / Integer.valueOf() caching
 	🔸NullPointerException on unboxing
 	🔸Type conversion (implicit/widening)
 	🔸Type casting (explicit/narrowing)
-	🔸Overflow
-	🔸Underflow
+	🔸Overflow/Underflow
 	🔸Integer overflow wrap-around behavior
 	🔸Floating-point precision loss
 	🔸NaN (Not a Number)
@@ -53,7 +52,6 @@ JAVA LANGUAGE FUNDAMENTALS
 	🔸System.arraycopy()
 	🔸Arrays utility class (sort, fill, equals, deepEquals)
 	🔸Varargs
-	🔸Autoboxing performance implications
 	🔸Wrapper class caching pitfalls (== vs equals for Integer)
 	🔸Immutable wrapper objects
 
