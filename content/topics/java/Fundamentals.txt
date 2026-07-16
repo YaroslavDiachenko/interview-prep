@@ -118,25 +118,118 @@ JAVA LANGUAGE FUNDAMENTALS
 === QUESTIONS ===
 
 📌 Variables & Types
-	🔸What are the 8 primitive types in Java and their default values and sizes?
+
 	🔸What is the difference between a primitive type and its wrapper class?
+
+	    Primitive types store values directly, are more memory-efficient, and avoid object allocation, making them
+	    the preferred choice for computation and performance-sensitive code.
+
+	    Wrapper classes are objects that encapsulate primitive values.
+	    They can be null, provide utility methods, participate in inheritance.
+	    Required for collections, generics and many framework APIs.
+
 	🔸What is autoboxing and unboxing, and where does Java perform them implicitly?
+
+	    Autoboxing is the automatic conversion of a primitive type to its corresponding wrapper class.
+	    Unboxing is the reverse conversion, from a wrapper object to a primitive.
+	    Both reduce boilerplate when working with wrapper classes.
+	    Autoboxing -> Integer.valueOf(10), unboxing -> myInteger.intValue().
+	    The compiler inserts these conversions automatically during assignments, method calls, return statements,
+	    arithmetic expressions, comparisons with primitives, and when using generic collections.
+
 	🔸Can autoboxing/unboxing cause a NullPointerException? Give an example.
+
+	    Autoboxing never causes a NullPointerException, but unboxing can.
+
 	🔸What is the Integer cache and why does it exist?
-	🔸Why does `Integer.valueOf(127) == Integer.valueOf(127)` return true but `Integer.valueOf(200) == Integer.valueOf(200)` return false?
+
+	    Java caches Integer objects for values from -128 to 127.
+	    When creating Integer using autoboxing or Integer.valueOf(), Java returns a cached instance.
+	    This reduces object creation, memory usage, and garbage collection overhead.
+
 	🔸How would you safely compare two Integer wrapper objects for value equality?
+
+	    Using Objects.equals(a, b) because it's null-safe and compares the wrapped numeric values.
+	    Note: Avoid == because it compares object references, not values.
+
 	🔸What is the difference between widening and narrowing conversions?
+
+	    Widening conversion converts a smaller data type to a larger one (e.g. int to long).
+	    It's performed automatically because it's generally safe and doesn't overflow the target type.
+	    Note: Widening to a floating-point type, like long to double, can still lose precision.
+
+        Narrowing conversion converts a larger type to a smaller one.
+        It requires an explicit cast because it may lose information through truncation, precision loss, or overflow.
+
 	🔸When does an explicit cast throw an exception vs silently truncate/wrap data?
+
+	    Primitive casts never throw exceptions - when narrowing, Java silently converts the value.
+
+	    In contrast, reference casts are checked at runtime.
+	    If the actual object's type isn't compatible with the target type, Java throws a ClassCastException.
+
 	🔸What happens when an int overflows? Does Java throw an exception?
+
+	    Java does not throw an exception.
+	    Integer arithmetic is performed using two's complement arithmetic.
+	    When the result exceeds the range of int, it wraps around to the opposite end of the range.
+
 	🔸How would you detect integer overflow before it happens?
+
+	    Java does not detect integer overflow automatically.
+	    It silently wraps around using two's complement arithmetic.
+	    To detect overflow:
+	        Before: Perform boundary checks.
+	        During: Use the built-in methods from Math or use BigInteger.
+
 	🔸What is the difference between int overflow and floating-point overflow (Infinity)?
+
+	    Feature	            Integer (int, long)	    Floating-point (float, double)
+        Standard	        Two's complement	    IEEE 754
+        Overflow result	    Wrap-around	            Infinity
+        Precision issues    Range overflow          Rounding and precision loss
+
 	🔸Why is floating-point arithmetic sometimes imprecise (e.g., 0.1 + 0.2 != 0.3)?
+
+        Because float and double store numbers in binary floating-point format (IEEE 754), and many decimal
+        fractions cannot be represented exactly in binary.
+        Some decimal fractions have infinite binary representations.
+        Decimal: 0.1    Binary: 0.0001100110011001100110011...
+        It repeats forever, just like: 1/3 = 0.333333333...
+        So Java stores the closest possible approximation.
+
 	🔸When should you use BigDecimal instead of double, and why?
+
+	    BigDecimal should be used for financial and high-precision calculations.
+	    BigDecimal provides exact decimal arithmetic with configurable precision and rounding.
+
+	    Double cannot exactly represent most decimal fractions due to binary floating-point representation.
+	    Double should be used when approximate values are acceptable and performance is more important.
+
 	🔸What are the pitfalls of using the BigDecimal(double) constructor vs BigDecimal.valueOf(double)?
-	🔸What rounding modes does BigDecimal support and when would you use each?
-	🔸Why is BigDecimal considered "safe" for monetary calculations while double is not?
-	🔸What is NaN, and what are its comparison semantics (e.g., NaN == NaN)?
-	🔸How do you correctly check if a double value is NaN?
+
+	    new BigDecimal(double) is dangerous because it converts the exact binary representation of the double,
+	    which may contain precision errors. BigDecimal.valueOf(double) first converts the double to its string
+	    representation and creates a decimal value closer to what the developer intended. For financial calculations,
+	    the safest approach is usually creating BigDecimal from a String, for example new BigDecimal("19.99"),
+	    because it avoids floating-point conversion entirely.
+
+	🔸What is NaN, what are its comparison semantics, how to check if NaN?
+
+        Not a Number. NaN is a special IEEE 754 floating-point value.
+        Represents an undefined or invalid numerical result (e.g. division zero by zero, square root of -1, etc.)
+
+        NaN is not equal to itself.
+        A notable exception is Double.equals(), which treats NaN values as equal for object equality purposes.
+
+        To correctly check if a double value is NaN, Double.isNaN(value) should be used.
+
+	🔸Why does Java return false for NaN == NaN, but Double.NaN.equals(Double.NaN) returns true?
+
+        The reason is that primitive comparison and object equality follow different rules.
+	    Double.equals() follows Java object equality rules. This allows Java hash-based collections
+	    to work correctly with Double keys.
+
 	🔸What is the String pool and how does it relate to memory management?
 	🔸Why are String objects immutable in Java? What are the benefits?
 	🔸What security and performance benefits come from String immutability?

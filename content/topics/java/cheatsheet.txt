@@ -7,10 +7,27 @@
                     require objects.
             🔹Autoboxing & Unboxing
             🔹Type Conversion & Casting. Widening (implicit) & Narrowing (explicit)
+                    Cast large long to int. Truncates the higher-order bits. No exception is thrown.
+                    Floating-point numbers do not wrap. Double.MAX_VALUE
             🔹Overflow & Underflow
                     When an integer overflows (exceeds maximum value) it rolls over to the minimum value (wraps around).
-            🔹Wrap-around behavior
+                    Does not throw an exception.
+                    Silently wrap around.
+                    To avoid: use Math (Math.addExact(), subtractExact(), multiplyExact(), etc.) or BigInteger
             🔹Floating-point precision loss
+            🔹Floating-point precision loss
+
+        🔶 Number
+            🔹IntegerCache
+            🔹NaN (Not a Number)
+            🔹Positive/Negative Infinity
+            🔹Floating-point equality pitfalls
+            🔹BigInteger
+                    Used to represent arbitrarily large integer values that cannot fit into Java's primitive integer types.
+            🔹BigDecimal
+                    Used instead of double for financial and high-precision calculations. Has variety of precision
+                    and rounding modes.
+            🔹Numeric literals (hex, octal, binary, underscore separators)
 
     📌 Fundamentals. Operators
     📌 Fundamentals. Control Flow
