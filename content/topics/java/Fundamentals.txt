@@ -4,53 +4,59 @@ JAVA LANGUAGE FUNDAMENTALS
 === TERMS ===
 
 📌 Variables & Types
-	🔸Primitive types
-	🔸Default values of primitive types
-	🔸Wrapper classes for primitive types
-	🔸Autoboxing/Unboxing
-	🔸Autoboxing performance implications
-	🔸Integer cache (-128..127) / Integer.valueOf() caching
-	🔸NullPointerException on unboxing
-	🔸Type conversion (implicit/widening)
-	🔸Type casting (explicit/narrowing)
-	🔸Overflow/Underflow
-	🔸Integer overflow wrap-around behavior
-	🔸Floating-point precision loss
-	🔸NaN (Not a Number)
-	🔸Positive/Negative Infinity
-	🔸Floating-point equality pitfalls
-	🔸BigInteger
-	🔸BigDecimal
-	🔸BigDecimal rounding modes
-	🔸Numeric literals (hex, octal, binary, underscore separators)
-	🔸char arithmetic and implicit int promotion
-	🔸Unicode and char representation (UTF-16 code unit)
-	🔸Escape sequences
-	🔸String immutability
-	🔸String Pool (interned strings)
-	🔸String.intern()
-	🔸String concatenation (+ operator) mechanics
-	🔸String vs StringBuilder vs StringBuffer
-	🔸StringBuilder internal implementation (mutable char array)
-	🔸StringBuffer synchronization overhead
-	🔸StringJoiner
-	🔸String.format() / formatted()
-	🔸Text blocks (Java 15+)
-	🔸Character utility methods (isDigit, isLetter, etc.)
-	🔸var (local variable type inference, Java 10+)
-	🔸Type inference limitations (var restrictions)
-	🔸final variables
-	🔸Effectively final variables
-	🔸Constants (static final)
-	🔸Compile-time constants and inlining
-	🔸Variable scope (local, instance, class/static)
-	🔸Variable shadowing
-	🔸Arrays (single and multidimensional)
-	🔸Array covariance
-	🔸ArrayStoreException
-	🔸Jagged arrays
-	🔸System.arraycopy()
-	🔸Arrays utility class (sort, fill, equals, deepEquals)
+
+	🔶 Primitive types
+        🔹Default values
+        🔹Wrapper classes
+	    🔹Autoboxing & Unboxing
+	    🔹Type Conversion & Casting. Widening (implicit) & Narrowing (explicit)
+	    🔹Overflow & Underflow
+	    🔹Wrap-around behavior
+	    🔹Floating-point precision loss
+
+	🔶 Number
+        🔹IntegerCache
+        🔹NaN (Not a Number)
+        🔹Positive/Negative Infinity
+        🔹Floating-point equality pitfalls
+        🔹BigInteger
+        🔹BigDecimal
+        🔹BigDecimal rounding modes
+        🔹Numeric literals (hex, octal, binary, underscore separators)
+
+	🔶 Character
+        🔹char arithmetic and implicit int promotion
+        🔹Unicode and char representation (UTF-16 code unit)
+        🔹Escape sequences
+	    🔹Character utility methods (isDigit, isLetter, etc.)
+
+	🔶 String
+        🔹String immutability
+        🔹String Pool (interned strings)
+        🔹String.intern()
+        🔹String concatenation (+ operator) mechanics
+        🔹String vs StringBuilder vs StringBuffer
+        🔹StringBuilder internal implementation (mutable char array)
+        🔹StringBuffer synchronization overhead
+        🔹StringJoiner
+        🔹String.format() / formatted()
+
+    🔶 Variables
+        🔹final variables
+        🔹Effectively final variables
+        🔹Constants (static final)
+        🔹Compile-time constants and inlining
+        🔹Variable scope (local, instance, class/static)
+        🔹Variable shadowing
+
+    🔶 Arrays
+        🔹Arrays (single and multidimensional)
+        🔹Array covariance
+        🔹ArrayStoreException
+        🔹Jagged arrays
+        🔹System.arraycopy()
+        🔹Arrays utility class (sort, fill, equals, deepEquals)
+	
 	🔸Varargs
 	🔸Wrapper class caching pitfalls (== vs equals for Integer)
 	🔸Immutable wrapper objects

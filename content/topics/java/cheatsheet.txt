@@ -1,7 +1,32 @@
 📁 Java Language Fundamentals
     📌 Fundamentals. Variables & Types
+        🔶 Primitive types
+            🔹Default values
+            🔹Wrapper classes
+                    Using numeric values in object-oriented features - collections, generics, APIs that
+                    require objects.
+            🔹Autoboxing & Unboxing
+            🔹Type Conversion & Casting. Widening (implicit) & Narrowing (explicit)
+            🔹Overflow & Underflow
+                    When an integer overflows (exceeds maximum value) it rolls over to the minimum value (wraps around).
+            🔹Wrap-around behavior
+            🔹Floating-point precision loss
+
     📌 Fundamentals. Operators
     📌 Fundamentals. Control Flow
 
 📁 JMM & JVM
+    📌 JMM & JVM. Memory Footprint
+        🔸Primitives
+            byte (1 byte), char (2), short (2), int (4), long (8), float (4), double (8)
+        🔸Reference (4 bytes with compressed Ordinary Object Pointers, 8 bytes otherwise)
+        🔸Object Memory Layout (64-bit CPU Hotspot JVM)
+            1. Header (16 bytes)
+                - Mark Word: 8 bytes (identity hashcode, GC age, locking state)
+                - Klass Pointer: 4 bytes (pointer to the class metadata in Metaspace)
+                - Padding/Memory alignment (for objects) / Array length (for arrays): 4 bytes
+            2. Data (variables or references)
+        🔸Metrics (Shallow size, Deep size, Retained size (only referenced from this object))
+
+
 📁 OOP
