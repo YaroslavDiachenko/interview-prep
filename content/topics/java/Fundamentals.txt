@@ -231,32 +231,244 @@ JAVA LANGUAGE FUNDAMENTALS
 	    to work correctly with Double keys.
 
 	🔸What is the String pool and how does it relate to memory management?
+
+	    String pool is a memory optimization technique.
+	    Strings are immutable and thus identical strings can safely be shared.
+	    Reduces memory usage, object creation, GC pressure.
+
+	    A string is added to the pool when:
+            1. A string literal appears in the code
+            2. String.intern() is called
+            3. The JVM creates certain internal strings (e.g., class names), but not arbitrary user input.
+
 	🔸Why are String objects immutable in Java? What are the benefits?
-	🔸What security and performance benefits come from String immutability?
+
+	    String immutability is a deliberate design choice that provides security, thread safety,
+	    reliable behavior in hash-based collections, efficient String pooling, and various JVM optimizations.
+
+	    Security.
+	    Strings are heavily used in security-sensitive areas. Not changed after validation and permission checks.
+
+	    Thread Safety.
+	    Because Strings are immutable, they are inherently thread-safe. Can be shared without synchronization.
+	    This significantly reduces concurrency issues and synchronization overhead.
+
+	    String Pool Optimization.
+	    If one reference could modify the object, it would unexpectedly affect all other references.
+
+	    Stable Hash Codes.
+	    The hash code of a String is cached after the first calculation.
+
+	    Performance.
+	    Hash code caching, String pooling, safe sharing of objects, compiler optimizations, reduced synchronization.
+
 	🔸What does String.intern() do, and when would you use it?
-	🔸What is the difference between creating a String via literal vs `new String(...)`?
-	🔸How many String objects are created in `new String("abc")`?
+
+	    String.intern() returns the pooled canonical instance of a String.
+
 	🔸What is the difference between String, StringBuilder, and StringBuffer?
-	🔸When would you choose StringBuffer over StringBuilder?
+
+	    The main difference is mutability and thread safety. StringBuffer is synchronized.
+
 	🔸How does string concatenation with `+` work under the hood (compile-time vs runtime)?
+
+        If all operands are compile-time constants, the compiler calculates the result during compilation and stores
+        the result in the string constant pool.
+        String s = "Hello" + " " + "World";
+
+        Otherwise, at runtime.
+        String s = "Hello " + getName();
+
+        Modern JVMs already optimize ordinary + expressions effectively by generating an invokedynamic instructions.
+
 	🔸Why is using `+` for string concatenation in a loop considered a performance anti-pattern?
-	🔸What does the compiler do differently for `String s = "a" + "b";` vs building a string in a loop?
+
+        Because String is immutable and every concatenation creates a new String object.
+	    With + it is quadratic time complexity O(n²), with StringBuilder - linear O(n).
+
 	🔸What is a text block and what problems does it solve?
+
+        Text blocks are a Java 15 feature that provide a cleaner syntax for multi-line String literals using """.
+        They solve the readability and maintenance problems of traditional multi-line strings by eliminating most
+        concatenation, reducing escape sequences, and automatically handling common indentation.
+        They are still ordinary String objects at runtime.
+
 	🔸What is the purpose of `var` and what are its limitations?
-	🔸Can `var` be used for instance fields or method parameters? Why or why not?
+
+        var is Java's local variable type inference feature, introduced in Java 10. It lets the compiler infer the
+        type of a local variable from its initializer, reducing boilerplate while preserving static typing. It can
+        only be used for local variables (and, since Java 11, lambda parameters), requires an initializer, cannot
+        infer a type from null, and does not make Java dynamically typed. It's most useful when the inferred type
+        is obvious and less useful when it would obscure the code's intent.
+
 	🔸Does using `var` make Java a dynamically typed language? Why not?
-	🔸What is the difference between `final` and "effectively final"?
+
+	    No. In dynamically typed languages the same variable can refer to values of different types during execution.
+        In Java, the compiler infers the variable's type at compile time and that type is fixed for the lifetime
+        of the variable.
+
 	🔸Why do lambdas and anonymous classes require captured local variables to be final or effectively final?
+
+	    A final variable is explicitly declared with the final keyword and can only be assigned once. An effectively
+	    final variable is not declared final but is assigned only once and never reassigned, so the compiler treats
+	    it as final where required. This allows lambdas and anonymous classes to capture local variables without
+	    requiring the final keyword, while still ensuring the captured value cannot become inconsistent with the
+	    original local variable.
+
 	🔸What is the difference between a compile-time constant and a `final` variable that isn't a compile-time constant?
+
+	    Tests: Understanding of the Java Language Specification (JLS), class loading, bytecode generation, and
+	    binary compatibility.
+
+	    A compile-time constant is a final primitive or String initialized with a constant expression, so the compiler
+	    knows its value during compilation and inlines it into the bytecode. Accessing it does not trigger class
+	    initialization, but changing its value requires recompiling dependent code because the old value is embedded
+	    in their bytecode.
+
+	    A final variable that is not a compile-time constant is assigned only once, but its value is determined at
+	    runtime. It is accessed via a field lookup (getstatic), triggers normal class initialization when appropriate,
+	    and does not suffer from constant inlining.
+
+
 	🔸What issues can arise from inlining compile-time constants across compiled classes (binary compatibility)?
+
+	    public class Config {
+            public static final int VERSION = 1;
+        }
+        main () {
+            System.out.println(Config.VERSION); --> System.out.println(1);
+        }
+        VERSION = 2; // Suppose later the library changes
+
+        Because the value was inlined into the application's bytecode, the application must also be recompiled.
+
 	🔸What is array covariance in Java, and what runtime risk does it introduce?
-	🔸What is ArrayStoreException and when is it thrown?
+
+	    Array covariance means that if B is a subtype of A, then B[] is also considered a subtype of A[].
+	    Dog[] -> Animal[] is legal, while List<Dog> -> List<Animal> is illegal.
+
+	    This allows polymorphic use of arrays but introduces a runtime risk.
+        In modern enterprise Java, collections are preferred over arrays because they provide stronger compile-time
+        type safety and are more flexible.
+
+	    | Arrays                               | Generics                                     |
+        | ------------------------------------ | -------------------------------------------- |
+        | Reified (runtime knows element type) | Erased (runtime doesn't know type parameter) |
+        | Covariant                            | Invariant                                    |
+        | Runtime type checks                  | Compile-time type checks                     |
+        | May throw `ArrayStoreException`      | Prevented by compiler                        |
+
+    🔸Why are arrays covariant but generics invariant?
+
+        Arrays predate generics and preserve backward compatibility by performing runtime checks.
+        Generics were designed later with compile-time type safety in mind and use invariance to prevent type errors.
+
 	🔸How does `System.arraycopy()` differ from `Arrays.copyOf()`?
+
+	    Tests: Low-level array operations, JDK utility methods, and performance vs convenience.
+
+	    public static native void arraycopy(Object src,  int  srcPos, Object dest, int destPos, int length);
+
+        System.arraycopy() is one of the fastest operations in Java. Because it is native, the JVM can optimize it
+        heavily, often using specialized CPU instructions or bulk memory operations.
+        It doesn't allocate memory and is ideal for high-performance or partial copies.
+
+        Arrays.copyOf() is a higher-level utility that creates a new array, optionally resizes it, and internally
+        uses System.arraycopy() to copy the elements.
+
+        Both perform shallow copies.
+
 	🔸What is the difference between `Arrays.equals()` and `Arrays.deepEquals()`?
+
+	    Tests: Array comparison, one-dimensional and nested (multidimensional) arrays, equals inheritance.
+
+	    Arrays.equals() performs a shallow, element-by-element comparison.
+
+	    For primitive arrays it compares values, and for object arrays it compares elements using their equals() method.
+	    However, if the elements are themselves arrays, they are compared by reference, so multidimensional arrays
+	    with identical contents but different inner array instances are considered unequal.
+
+	    Arrays.deepEquals() solves this by recursively traversing nested arrays and comparing their contents.
+	    For one-dimensional arrays, both methods typically produce the same result; for multidimensional arrays,
+	    deepEquals() is the correct choice.
+
 	🔸How do varargs work internally, and what are the pitfalls of mixing varargs with overloading?
+
+	    Varargs are implemented as arrays. Varargs are compiler syntactic sugar for arrays.
+
+	    Mixing varargs with similar overloads can therefore lead to surprising method selection or ambiguous calls,
+	    especially with null, boxing, or multiple varargs overloads.
+
+	    Generic varargs also require care because arrays are reified while generics are erased. Creating an array of a
+	    non-reifiable type (List<T>[]) can lead to heap pollution due to the mismatch between array reification and
+	    generic type erasure.
+
+	    static <T> void add(List<T>... lists)
+
 	🔸What is the performance cost of autoboxing in a tight loop or large collection?
+
+	    Tests: It goes beyond the definition of autoboxing and focuses on memory allocation, GC pressure,
+	    CPU overhead, and API design.
+
+        a) long sum = 0; or b) Long sum = 0L;
+
+        for (int i = 0; i < 1_000_000; i++) {
+            sum += i;
+        }
+
+        a) The CPU performs direct arithmetic on primitive values. No allocations, no garbage.
+        b) Each update creates a new Long object because wrapper classes are immutable. This means potentially one
+        million object allocations.
+
+        IntStream.range(0, 1_000_000).sum();
+        IntStream avoids boxing entirely by working with primitives, making it more memory-efficient and often faster
+        for numeric workloads.
+
 	🔸Why can excessive autoboxing hurt performance in numeric-heavy code?
+
+	    Autoboxing can become a bottleneck in numeric algorithms.
+        Excessive autoboxing hurts performance because every conversion between a primitive and its wrapper may introduce:
+
+        - object allocation
+        - additional memory usage
+        - garbage collection pressure
+        - pointer indirection
+        - extra boxing/unboxing operations
+
+        In numeric-heavy code, these costs accumulate over millions of iterations.
+
+        In enterprise applications, autoboxing overhead is often negligible for business logic.
+        However, it becomes important in:
+
+        - high-frequency trading systems
+        - telemetry and metrics collection
+        - scientific computing
+        - real-time analytics
+        - large in-memory caches
+        - performance-critical loops
+
+        In such cases, developers often:
+        - use primitive arrays (int[], long[])
+        - prefer primitive streams (IntStream, LongStream)
+        - use primitive collections from libraries such as FastUtil, HPPC, Eclipse Collections, or Trove instead
+        of List<Integer> when performance is critical.
+
 	🔸What's the difference between `char` arithmetic and `int` arithmetic in expressions like `char c = 'a' + 1;`?
+
+	    Tests: Understanding of binary numeric promotion, constant expressions, compile-time evaluation, and the
+	    difference between char storage type and arithmetic type.
+
+        Binary numeric promotion is a compiler mechanism that automatically converts two differing numeric operands
+        into a single common type before evaluating a binary operator.
+
+        In Java, char values are promoted to int when used in arithmetic expressions. Therefore, expressions
+        like 'a' + 1 have type int and evaluate to 98, not to a char. The reason char c = 'a' + 1 compiles is
+        that it is a compile-time constant expression whose value fits into the char range. A normal char + int
+        expression produces an int and requires an explicit cast, while compound assignments like c += 1 work
+        because Java automatically inserts the narrowing conversion. The key distinction is that char is a storage
+        type, but arithmetic involving char is performed using integer promotion.
+
+
 	🔸Why does `char + char` produce an `int` result?
 	🔸How does Java represent characters internally, and how does that relate to Unicode/UTF-16 and surrogate pairs?
 	🔸What numeric literal formats does Java support (hex, octal, binary, underscores)?
@@ -264,21 +476,114 @@ JAVA LANGUAGE FUNDAMENTALS
 
 📌 Operators
 	🔸What is the difference between `==` and `.equals()` for objects?
-	🔸Why does `==` work correctly for primitives but can be misleading for wrapper objects?
+
+	    == compares references (whether two variables point to the same object in memory).
+	    For primitives == compares values because primitives have no object identity.
+	    Should be used for identity checks, null checks, enums, and primitives.
+
+        .equals() compares actual contents, the so-called logical equality (whether two objects should be considered
+        equal based on their state), provided the class overrides equals().
+
+        Most value-based classes override equals(): String, Wrapper classes, BigDecimal, Collections (List, Set, Map).
+
+        Prefer immutable fields in equality comparisons to avoid inconsistent behavior after an object is inserted
+        into hash-based collections.
+        Failing to override hashCode() violates the contract and causes incorrect behavior in hash-based collections.
+
+
 	🔸What does `instanceof` check, and how does it behave with null?
+
+        instanceof checks whether an object's runtime type is compatible with a given class or interface. It returns
+        true if the object is an instance of that type, a subclass, or an implementing class; otherwise it returns false.
+
+        instanceof performs a runtime type compatibility check, not a compile-time check. It checks actual runtime
+        type, not the declared type.
+
+        It is null-safe and returns false for null.
+
+        While instanceof is useful at API boundaries, serialization/deserialization, or when working with heterogeneous
+        object graphs, overusing it inside domain logic may suggest a design that could benefit from polymorphism.
+
 	🔸What is pattern matching for `instanceof`, and how does it reduce boilerplate?
-	🔸What is short-circuit evaluation, and how does it differ between `&`/`|` and `&&`/`||`?
+
+	    Pattern matching for instanceof (Java 16+) combines the type check and cast. The compiler automatically
+	    performs the cast if the type check succeeds.
+
+	    Object obj = "Hello";
+        if (obj instanceof String s) {
+            System.out.println(s.length());
+        }
+
+	🔸What is short-circuit evaluation?
+
+        Short-circuit evaluation means that Java does not evaluate the second operand if the result of the
+        expression is already known from the first operand.
+
+        Logical operators && and || are short-circuit.
+        Bitwise operators & and | always evaluate both operands when used with boolean expressions.
+
+        Short-circuit evaluation use cases are:
+        1. Preventing exceptions:
+            if (str != null && str.length() > 5)
+        2. Avoiding expensive operations:
+            if (cache.contains(key) || database.lookup(key))
+        3. Avoiding unnecessary method calls:
+            if (user != null && user.isActive())
+
 	🔸When would you deliberately use `&` or `|` instead of `&&` or `||`?
-	🔸What do the bitwise operators `&`, `|`, `^`, `~` do?
-	🔸What is the difference between `>>` and `>>>`?
-	🔸Why doesn't Java have an unsigned left shift operator?
+
+	    Java bitwise operators are used to perform operations at the binary (bit) level. These operators work on
+	    individual bits of numbers. They are commonly used in low-level programming, encryption, and performance
+	    optimization.
+
 	🔸How does operator precedence affect the evaluation of complex expressions?
+
+	    Operator precedence defines the order in which operators are evaluated when parentheses are absent.
+	    Parentheses always override precedence and improve readability.
+
+	    In production code, I avoid relying on precedence in complex expressions and use parentheses to make the
+	    intended evaluation order explicit, reducing the risk of subtle bugs and improving maintainability.
+
 	🔸What is the difference between pre-increment and post-increment operators?
-	🔸What is a subtle bug that can occur when combining `++` with other operations in the same expression?
+
+	    Both operators increment a variable by one, but they differ in when the increment takes effect.
+
+	    In production code, I avoid using increment operators in complex expressions and prefer clear, readable code
+	    where the order of evaluation is obvious.
+
 	🔸Why does `x += 1` compile even when `x` is a `byte` but `x = x + 1` does not?
-	🔸What is the implicit narrowing cast performed by compound assignment operators?
+
+	    Tests: Understanding of numeric promotion, compound assignment operators, and implicit casting in Java.
+
+	    In Java, arithmetic operations on types smaller than int (byte, short, char) are automatically promoted to
+	    int before the operation.
+
+	    Since assigning an int to a byte may lose data, Java requires an explicit cast.
+	    That is why x = x + 1 fails.
+	    With compound assignment, the Java compiler automatically inserts a narrowing cast to the type of the
+	    left-hand side. Conceptually, x += 1 is equivalent to x = (byte)(x + 1).
+
 	🔸What are common misuses or misunderstandings of the ternary operator, especially involving mixed types?
-	🔸What is unboxing-related NPE risk when using `?:` with mixed primitive and wrapper operands?
+
+	    The most common misunderstandings involve:
+
+            1. type inference (especially with mixed numeric types)
+                The compiler determines a common type for both branches:
+                    int i = 10; double d = 5.5;
+                    var result = true ? i : d; // result is double, as common wider type
+
+            2. autoboxing and unboxing
+                The compiler performs unboxing:
+                    Integer a = 10;
+                    var result = true ? a : 20; // result is int, as result of unboxing
+
+            3. null values
+                The compiler determines the common type is int, so it unboxes value: value.intValue()
+                    Integer value = null;
+                    var result = true ? value : 0; // NullPointerException
+
+                    Integer result = true ? value : Integer.valueOf(0); // safe, cause no unboxing
+
 
 📌 Control Flow
 	🔸What is the difference between a switch statement and a switch expression?
